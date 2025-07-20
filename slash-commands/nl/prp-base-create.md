@@ -1,4 +1,8 @@
+# Maak BASE PRP
 
+## Feature: $ARGUMENTS
+
+## Workflow
 
 flowchart TD
     Start([Start: Maak BASE PRP]) --> Input["Ontvang ARGUMENTEN<br/>Feature specificatie"]
