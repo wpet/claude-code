@@ -1,4 +1,6 @@
-# Stappenplan voor het uitvoeren van de fix
+# Stappenplan uitvoeren fix
+
+## Werkprogramma
 
 flowchart TD
     Start([Start: Fix nodig]) --> A["A. Vat samen wat je gaat fixen<br/>Gebruik exacte bewoordingen<br/>Niet-dubbelzinnige logica"]
@@ -55,5 +57,12 @@ flowchart TD
     
     KeepBackups --> End([Fix voltooid])
     DeleteBackups --> End
-
-Think hard!
+    
+    style Start fill:#90EE90
+    style End fill:#90EE90
+    style C fill:#87CEEB
+    style B2 fill:#FFE4B5
+    style D3Check fill:#FFE4B5
+    style D6Check fill:#FFE4B5
+    style AllDone fill:#FFE4B5
+    style D7Check fill:#FFE4B5
