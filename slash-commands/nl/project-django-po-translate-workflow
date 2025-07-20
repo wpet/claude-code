@@ -14,49 +14,58 @@ flowchart TD
     
     BackupCheck -->|Ja| PrepareProcessing["Bereid verwerking voor:<br/>Verdeel bestand in blokken<br/>van max 100 regels<br/>met 10 regels overlap"]
     
-    PrepareProcessing --> BlockLoop["Start blokverwerking<br/>Blok nummer = 1"]
+    PrepareProcessing --> CalculateBlocks["Bereken totaal aantal blokken<br/>Verdeel over 10 sub-agents"]
     
-    BlockLoop --> ReadBlock["Lees huidige blok<br/>100 regels + 10 overlap"]
+    CalculateBlocks --> StartAgents["Start 10 sub-agents<br/>voor parallelle verwerking"]
     
-    ReadBlock --> ProcessBlock["Verwerk huidige blok"]
+    StartAgents --> Agent1["Sub-agent 1<br/>Verwerk toegewezen blokken"]
+    StartAgents --> Agent2["Sub-agent 2<br/>Verwerk toegewezen blokken"]
+    StartAgents --> Agent3["Sub-agent 3<br/>Verwerk toegewezen blokken"]
+    StartAgents --> Agent4["Sub-agent 4<br/>Verwerk toegewezen blokken"]
+    StartAgents --> Agent5["Sub-agent 5<br/>Verwerk toegewezen blokken"]
+    StartAgents --> Agent6["Sub-agent 6<br/>Verwerk toegewezen blokken"]
+    StartAgents --> Agent7["Sub-agent 7<br/>Verwerk toegewezen blokken"]
+    StartAgents --> Agent8["Sub-agent 8<br/>Verwerk toegewezen blokken"]
+    StartAgents --> Agent9["Sub-agent 9<br/>Verwerk toegewezen blokken"]
+    StartAgents --> Agent10["Sub-agent 10<br/>Verwerk toegewezen blokken"]
     
-    ProcessBlock --> CheckFuzzy{"Bevat regel<br/>'#, fuzzy'?"}
+    Agent1 --> ProcessAgent1{{"Voor elk blok:<br/>- Check fuzzy<br/>- Check lege vertalingen<br/>- Verwijder #~ regels<br/>- Vertaal naar NL<br/>- Sla op als block-X"}}
+    Agent2 --> ProcessAgent2{{"Voor elk blok:<br/>- Check fuzzy<br/>- Check lege vertalingen<br/>- Verwijder #~ regels<br/>- Vertaal naar NL<br/>- Sla op als block-X"}}
+    Agent3 --> ProcessAgent3{{"Voor elk blok:<br/>- Check fuzzy<br/>- Check lege vertalingen<br/>- Verwijder #~ regels<br/>- Vertaal naar NL<br/>- Sla op als block-X"}}
+    Agent4 --> ProcessAgent4{{"Voor elk blok:<br/>- Check fuzzy<br/>- Check lege vertalingen<br/>- Verwijder #~ regels<br/>- Vertaal naar NL<br/>- Sla op als block-X"}}
+    Agent5 --> ProcessAgent5{{"Voor elk blok:<br/>- Check fuzzy<br/>- Check lege vertalingen<br/>- Verwijder #~ regels<br/>- Vertaal naar NL<br/>- Sla op als block-X"}}
+    Agent6 --> ProcessAgent6{{"Voor elk blok:<br/>- Check fuzzy<br/>- Check lege vertalingen<br/>- Verwijder #~ regels<br/>- Vertaal naar NL<br/>- Sla op als block-X"}}
+    Agent7 --> ProcessAgent7{{"Voor elk blok:<br/>- Check fuzzy<br/>- Check lege vertalingen<br/>- Verwijder #~ regels<br/>- Vertaal naar NL<br/>- Sla op als block-X"}}
+    Agent8 --> ProcessAgent8{{"Voor elk blok:<br/>- Check fuzzy<br/>- Check lege vertalingen<br/>- Verwijder #~ regels<br/>- Vertaal naar NL<br/>- Sla op als block-X"}}
+    Agent9 --> ProcessAgent9{{"Voor elk blok:<br/>- Check fuzzy<br/>- Check lege vertalingen<br/>- Verwijder #~ regels<br/>- Vertaal naar NL<br/>- Sla op als block-X"}}
+    Agent10 --> ProcessAgent10{{"Voor elk blok:<br/>- Check fuzzy<br/>- Check lege vertalingen<br/>- Verwijder #~ regels<br/>- Vertaal naar NL<br/>- Sla op als block-X"}}
     
-    CheckFuzzy -->|Ja| TranslateFuzzy["Vertaal msgstr in<br/>betreffende vertaalsectie<br/>ongeacht bestaande NL tekst"]
+    ProcessAgent1 --> WaitForAll["Wacht tot alle sub-agents klaar zijn"]
+    ProcessAgent2 --> WaitForAll
+    ProcessAgent3 --> WaitForAll
+    ProcessAgent4 --> WaitForAll
+    ProcessAgent5 --> WaitForAll
+    ProcessAgent6 --> WaitForAll
+    ProcessAgent7 --> WaitForAll
+    ProcessAgent8 --> WaitForAll
+    ProcessAgent9 --> WaitForAll
+    ProcessAgent10 --> WaitForAll
     
-    CheckFuzzy -->|Nee| CheckEmpty{"Bevat msgstr<br/>lege Nederlandse<br/>vertaling ('')?"}
+    WaitForAll --> AllComplete{"Alle sub-agents<br/>voltooid?"}
     
-    TranslateFuzzy --> CheckRemove
+    AllComplete -->|Nee| CheckTimeout{"Timeout<br/>bereikt?"}
+    CheckTimeout -->|Ja| HandleTimeout["Identificeer hangende agents<br/>Herverdeel werk"]
+    HandleTimeout --> WaitForAll
+    CheckTimeout -->|Nee| WaitForAll
     
-    CheckEmpty -->|Ja| TranslateEmpty["Vertaal Engelse tekst<br/>naar Nederlands"]
-    
-    CheckEmpty -->|Nee| CheckRemove{"Begint regel<br/>met '#~ '?"}
-    
-    TranslateEmpty --> CheckRemove
-    
-    CheckRemove -->|Ja| RemoveLine["Verwijder regel"]
-    CheckRemove -->|Nee| KeepLine["Behoud regel"]
-    
-    RemoveLine --> MoreLines{"Meer regels in<br/>huidige blok?"}
-    KeepLine --> MoreLines
-    
-    MoreLines -->|Ja| ProcessBlock
-    
-    MoreLines -->|Nee| SaveBlock["Schrijf blok weg naar<br/>django.po-block-[blok_nummer]"]
-    
-    SaveBlock --> PlayAudio["Speel audio bestand af:<br/>.claude/audio/ready.mp3"]
+    AllComplete -->|Ja| PlayAudio["Speel audio bestand af:<br/>.claude/audio/ready.mp3"]
     
     PlayAudio --> AudioCheck{"Audio afgespeeld?"}
     
     AudioCheck -->|Nee| AudioRetry["Probeer audio opnieuw"]
     AudioRetry --> PlayAudio
     
-    AudioCheck -->|Ja| MoreBlocks{"Meer blokken<br/>te verwerken?"}
-    
-    MoreBlocks -->|Ja| NextBlock["Verhoog blok nummer<br/>Ga naar volgende blok"]
-    NextBlock --> ReadBlock
-    
-    MoreBlocks -->|Nee| MergeBlocks["Voeg alle blokken samen<br/>Verwijder dubbele regels<br/>door overlap"]
+    AudioCheck -->|Ja| MergeBlocks["Voeg alle blokken samen<br/>in juiste volgorde<br/>Verwijder dubbele regels door overlap"]
     
     MergeBlocks --> WriteFile["Schrijf samengevoegd resultaat<br/>over originele django.po"]
     
@@ -87,13 +96,22 @@ flowchart TD
     style EndWithBackup fill:#87CEEB
     style EndWithWarning fill:#FFE4B5
     style End fill:#FF6B6B
+    style StartAgents fill:#FFB6C1
+    style WaitForAll fill:#FFB6C1
     style BackupCheck fill:#FFE4B5
-    style CheckFuzzy fill:#FFE4B5
-    style CheckEmpty fill:#FFE4B5
-    style CheckRemove fill:#FFE4B5
-    style MoreLines fill:#FFE4B5
+    style AllComplete fill:#FFE4B5
+    style CheckTimeout fill:#FFE4B5
     style AudioCheck fill:#FFE4B5
-    style MoreBlocks fill:#FFE4B5
     style WriteCheck fill:#FFE4B5
     style UserResponse fill:#FFE4B5
     style DeleteCheck fill:#FFE4B5
+    style ProcessAgent1 fill:#E6E6FA
+    style ProcessAgent2 fill:#E6E6FA
+    style ProcessAgent3 fill:#E6E6FA
+    style ProcessAgent4 fill:#E6E6FA
+    style ProcessAgent5 fill:#E6E6FA
+    style ProcessAgent6 fill:#E6E6FA
+    style ProcessAgent7 fill:#E6E6FA
+    style ProcessAgent8 fill:#E6E6FA
+    style ProcessAgent9 fill:#E6E6FA
+    style ProcessAgent10 fill:#E6E6FA
