@@ -4,7 +4,7 @@ Implement a feature using the PRP file.
 
 ## PRP File: $ARGUMENTS
 
-## Flowchart
+## Workflow
 
 flowchart TD
     Start([Start: Execute BASE PRP]) --> Input["Receive PRP File:<br/>ARGUMENTS"]
