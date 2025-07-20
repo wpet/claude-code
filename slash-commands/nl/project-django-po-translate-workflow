@@ -1,0 +1,99 @@
+# Vertaal django.po naar Nederlands
+
+## ## django.po bestand: $ARGUMENTS
+
+flowchart TD
+    Start([Start: Django.po vertaling]) --> Receive["Ontvang django.po bestand"]
+    
+    Receive --> CreateBackup["Maak backup van django.po<br/>naar django.po-backup"]
+    
+    CreateBackup --> BackupCheck{"Backup succesvol<br/>aangemaakt?"}
+    
+    BackupCheck -->|Nee| BackupError["Fout: Kan geen backup maken"]
+    BackupError --> End([Einde: Proces afgebroken])
+    
+    BackupCheck -->|Ja| PrepareProcessing["Bereid verwerking voor:<br/>Verdeel bestand in blokken<br/>van max 100 regels<br/>met 10 regels overlap"]
+    
+    PrepareProcessing --> BlockLoop["Start blokverwerking<br/>Blok nummer = 1"]
+    
+    BlockLoop --> ReadBlock["Lees huidige blok<br/>100 regels + 10 overlap"]
+    
+    ReadBlock --> ProcessBlock["Verwerk huidige blok"]
+    
+    ProcessBlock --> CheckFuzzy{"Bevat regel<br/>'#, fuzzy'?"}
+    
+    CheckFuzzy -->|Ja| TranslateFuzzy["Vertaal msgstr in<br/>betreffende vertaalsectie<br/>ongeacht bestaande NL tekst"]
+    
+    CheckFuzzy -->|Nee| CheckEmpty{"Bevat msgstr<br/>lege Nederlandse<br/>vertaling ('')?"}
+    
+    TranslateFuzzy --> CheckRemove
+    
+    CheckEmpty -->|Ja| TranslateEmpty["Vertaal Engelse tekst<br/>naar Nederlands"]
+    
+    CheckEmpty -->|Nee| CheckRemove{"Begint regel<br/>met '#~ '?"}
+    
+    TranslateEmpty --> CheckRemove
+    
+    CheckRemove -->|Ja| RemoveLine["Verwijder regel"]
+    CheckRemove -->|Nee| KeepLine["Behoud regel"]
+    
+    RemoveLine --> MoreLines{"Meer regels in<br/>huidige blok?"}
+    KeepLine --> MoreLines
+    
+    MoreLines -->|Ja| ProcessBlock
+    
+    MoreLines -->|Nee| SaveBlock["Schrijf blok weg naar<br/>django.po-block-[blok_nummer]"]
+    
+    SaveBlock --> PlayAudio["Speel audio bestand af:<br/>.claude/audio/ready.mp3"]
+    
+    PlayAudio --> AudioCheck{"Audio afgespeeld?"}
+    
+    AudioCheck -->|Nee| AudioRetry["Probeer audio opnieuw"]
+    AudioRetry --> PlayAudio
+    
+    AudioCheck -->|Ja| MoreBlocks{"Meer blokken<br/>te verwerken?"}
+    
+    MoreBlocks -->|Ja| NextBlock["Verhoog blok nummer<br/>Ga naar volgende blok"]
+    NextBlock --> ReadBlock
+    
+    MoreBlocks -->|Nee| MergeBlocks["Voeg alle blokken samen<br/>Verwijder dubbele regels<br/>door overlap"]
+    
+    MergeBlocks --> WriteFile["Schrijf samengevoegd resultaat<br/>over originele django.po"]
+    
+    WriteFile --> WriteCheck{"Bestand succesvol<br/>overschreven?"}
+    
+    WriteCheck -->|Nee| WriteError["Fout bij wegschrijven"]
+    WriteError --> RestoreBackup["Herstel vanaf backup"]
+    RestoreBackup --> End
+    
+    WriteCheck -->|Ja| AskUser["Vraag gebruiker:<br/>Is de vertaling akkoord?"]
+    
+    AskUser --> UserResponse{"Gebruiker<br/>bevestigt?"}
+    
+    UserResponse -->|Nee| KeepBackup["Behoud backup voor<br/>eventuele correcties"]
+    KeepBackup --> EndWithBackup([Einde: Vertaling voltooid<br/>Backup behouden])
+    
+    UserResponse -->|Ja| DeleteBackup["Verwijder django.po-backup"]
+    
+    DeleteBackup --> DeleteCheck{"Backup succesvol<br/>verwijderd?"}
+    
+    DeleteCheck -->|Nee| DeleteWarning["Waarschuwing:<br/>Backup kon niet worden verwijderd"]
+    DeleteWarning --> EndWithWarning([Einde: Vertaling voltooid<br/>Backup handmatig verwijderen])
+    
+    DeleteCheck -->|Ja| Success([Einde: Vertaling succesvol<br/>Backup verwijderd])
+    
+    style Start fill:#90EE90
+    style Success fill:#90EE90
+    style EndWithBackup fill:#87CEEB
+    style EndWithWarning fill:#FFE4B5
+    style End fill:#FF6B6B
+    style BackupCheck fill:#FFE4B5
+    style CheckFuzzy fill:#FFE4B5
+    style CheckEmpty fill:#FFE4B5
+    style CheckRemove fill:#FFE4B5
+    style MoreLines fill:#FFE4B5
+    style AudioCheck fill:#FFE4B5
+    style MoreBlocks fill:#FFE4B5
+    style WriteCheck fill:#FFE4B5
+    style UserResponse fill:#FFE4B5
+    style DeleteCheck fill:#FFE4B5
