@@ -3,7 +3,7 @@
 ## Werkprogramma
 
 flowchart TD
-    Start([Start: Fix nodig]) --> A["A. Vat samen wat je gaat fixen<br/>Gebruik exacte bewoordingen<br/>Niet-dubbelzinnige logica"]
+    Start([Start: Fix nodig]) --> A["A. Vat samen wat je gaat fixen, Gebruik exacte bewoordingen, Niet-dubbelzinnige logica"]
     
     A --> B["B. Controleer of je alles weet voor de fix"]
     
