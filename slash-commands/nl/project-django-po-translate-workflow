@@ -1,8 +1,9 @@
 # Vertaal django.po naar Nederlands
 
-## ## django.po bestand: $ARGUMENTS
+## django.po bestand: $ARGUMENTS
 
-```mermaid
+```
+mermaid
 flowchart TD
     Start([Start: Django.po translation to Dutch]) --> Receive["Receive django.po file"]
     
