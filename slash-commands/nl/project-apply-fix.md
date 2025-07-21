@@ -2,6 +2,7 @@
 
 ## Werkprogramma
 
+```mermaid
 flowchart TD
     Start([Start: Fix nodig]) --> A["A. Vat samen wat je gaat fixen, Gebruik exacte bewoordingen, Niet-dubbelzinnige logica"]
     
@@ -66,3 +67,4 @@ flowchart TD
     style D6Check fill:#FFE4B5
     style AllDone fill:#FFE4B5
     style D7Check fill:#FFE4B5
+```
