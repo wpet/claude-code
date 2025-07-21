@@ -1,9 +1,14 @@
-# Maak BASE PRP
+# BASE PRP Aanmaken
 
-## Feature: $ARGUMENTS
+## Feature: Argumenten $ARGUMENTS
 
-## Workflow
+Genereer een complete PRP (Product Requirements Proposal/Document) voor de implementatie van een feature, gebaseerd op diepgaand en grondig onderzoek. Zorg ervoor dat rijke context wordt meegegeven aan de AI via de PRP om een één-pass implementatiesucces mogelijk te maken door middel van zelfvalidatie en iteratieve verfijning.
 
+Het AI-agent krijgt alleen de context die je toevoegt aan de PRP en zijn eigen trainingsdata. Ga ervan uit dat het AI-agent toegang heeft tot de codebase en dezelfde kennis-cutoff als jij, dus het is belangrijk dat je onderzoeksbevindingen zijn opgenomen of waarnaar verwezen wordt in de PRP. Het agent heeft webzoekmogelijkheden, dus geef URL's naar documentatie en voorbeelden door.
+
+## Te volgen werkinstructie
+
+```mermaid
 flowchart TD
     Start([Start: Maak BASE PRP]) --> Input["Ontvang ARGUMENTEN<br/>Feature specificatie"]
     
@@ -16,7 +21,7 @@ flowchart TD
     CA2 --> CA3["Identificeer benodigde bestanden om te refereren"]
     CA3 --> CA4["Noteer bestaande conventies"]
     CA4 --> CA5["Controleer testpatronen voor validatie"]
-    CA5 --> CA6["Lees CLAUDE.md bestanden:<br/>./CLAUDE.md<br/>./app_name/CLAUDE.md<br/>claude_md_files/CLAUDE-AVISEO.md"]
+    CA5 --> CA6["Lees CLAUDE.md bestanden:<br/>./CLAUDE.md<br/>./app_name/CLAUDE.md<br/>./PRP/claude_md/CLAUDE-AVISEO.md"]
     CA6 --> CA7["Gebruik batch tools voor diep patroon zoeken"]
     
     CA7 --> CACheck{"Codebase analyse<br/>compleet?"}
@@ -33,7 +38,7 @@ flowchart TD
     ER5 --> ER6["Noteer veelvoorkomende valkuilen"]
     ER6 --> ERCritical{"Kritieke documentatie<br/>gevonden?"}
     
-    ERCritical -->|Ja| ER7["Voeg .md bestanden toe aan PRPs/ai_docs<br/>Refereer in PRP met redenering"]
+    ERCritical -->|Ja| ER7["Voeg .md bestanden toe aan PRP/ai_docs<br/>Refereer in PRP met redenering"]
     ERCritical -->|Nee| ER8["Ga door met verzamelde info"]
     
     ER7 --> ERCheck{"Extern onderzoek<br/>compleet?"}
@@ -55,7 +60,7 @@ flowchart TD
     
     AllResearchDone --> UltraThink["ULTRADENK over PRP aanpak<br/>Plan gedetailleerde todos"]
     
-    UltraThink --> PRPGen["Begin PRP Generatie<br/>Gebruik PRPs/templates/prp_base.md"]
+    UltraThink --> PRPGen["Begin PRP Generatie<br/>Gebruik PRP/templates/prp_base.md"]
     
     PRPGen --> Context["Voeg Kritieke Context toe:<br/>Documentatie URLs<br/>Code voorbeelden<br/>Valkuilen<br/>Patronen<br/>Best practices"]
     
@@ -68,7 +73,7 @@ flowchart TD
     ValCheck -->|Nee| ValFix["Herstel validatie poorten<br/>Maak uitvoerbaar"]
     ValFix --> Validation
     
-    ValCheck -->|Ja| SavePRP["Bewaar PRP naar:<br/>PRPs/output/create/feature-naam.md"]
+    ValCheck -->|Ja| SavePRP["Bewaar PRP naar:<br/>PRP/output/create/feature-naam.md"]
     
     SavePRP --> QualityCheck["Voer Kwaliteits Checklist uit"]
     
@@ -122,3 +127,90 @@ flowchart TD
     style QC3 fill:#FFE4B5
     style QC4 fill:#FFE4B5
     style QC5 fill:#FFE4B5
+```
+
+## Uitvoeringsproces
+
+### Lees en bestudeer de werkinstructie in het Mermaid diagram
+
+Volg deze instructie nauwgezet. Gebruik onderstaande tekst voor verheldering en het verkrijgen van verdere context.
+
+### Onderzoeksproces
+
+> Tijdens het onderzoeksproces, creëer **duidelijke taken** en spawn zoveel **agents en subagents** als nodig is met behulp van de batchtools. Hoe dieper het onderzoek dat je hier doet, hoe beter de PRP zal zijn. We optimaliseren voor de kans op succes en niet voor snelheid.
+
+1.  **Diepgaande Codebase Analyse**
+
+      * Creëer duidelijke taken en spawn subagents om de codebase te doorzoeken op **vergelijkbare features/patronen**. Denk goed na en plan je aanpak.
+      * Identificeer alle **benodigde bestanden** waarnaar moet worden verwezen in de PRP.
+      * Noteer alle **bestaande conventies** om te volgen.
+      * Controleer bestaande **testpatronen** voor de validatieaanpak.
+      * Lees **de relevante** CLAUDE.md-bestanden in het project:
+          * `./CLAUDE.md` (root van het project)
+          * `./[app_name]/CLAUDE.md` (in de apps die betrokken zijn bij de wijziging)
+      * Lees `./PRP/claude_md/CLAUDE-AVISEO.md`
+      * Gebruik de batchtools om subagents te spawnen om de codebase te doorzoeken op vergelijkbare features/patronen.
+
+2.  **Externe Onderzoek op Schaal**
+
+      * Creëer duidelijke taken en spawn subagents met instructies om diepgaand onderzoek te doen naar vergelijkbare features/patronen online en voeg **URL's naar documentatie en voorbeelden** toe.
+      * Bibliotheekdocumentatie (voeg **specifieke URL's** toe).
+      * Voeg voor kritieke documentatiestukken een `.md`-bestand toe aan `PRP/ai_docs` en verwijs ernaar in de PRP met duidelijke redenering en instructies.
+      * Implementatievoorbeelden (GitHub/StackOverflow/blogs).
+      * Best practices en veelvoorkomende valkuilen die tijdens onderzoek zijn gevonden.
+      * Gebruik de batchtools om subagents te spawnen om online te zoeken naar vergelijkbare features/patronen en voeg URL's naar documentatie en voorbeelden toe.
+
+3.  **Gebruikersverduidelijking**
+
+      * Vraag om verduidelijking indien nodig.
+
+### PRP Generatie
+
+Gebruik `PRP/templates/prp_base.md` als template:
+
+#### Minimale Kritieke Context om op te Nemen en door te Geven aan het AI-agent als onderdeel van de PRP
+
+  * **Documentatie**: URL's met specifieke secties.
+  * **Code Voorbeelden**: Echte fragmenten uit de codebase.
+  * **Valkuilen**: Bibliotheek-eigenaardigheden, versieproblemen.
+  * **Patronen**: Bestaande aanpakken om te volgen.
+  * **Best Practices**: Veelvoorkomende valkuilen gevonden tijdens onderzoek.
+
+#### Implementatie Blueprint
+
+  * Begin met pseudocode die de aanpak toont.
+  * Verwijs naar echte bestanden voor patronen.
+  * Voeg een strategie voor foutafhandeling toe.
+  * Lijst taken op die moeten worden voltooid om de PRP te vervullen, in de volgorde waarin ze moeten worden voltooid. Gebruik het patroon in de PRP met **informatiedichte trefwoorden**.
+
+#### Validatie Gates (Moet uitvoerbaar zijn door het AI-agent)
+
+```bash
+# Syntaxis/Stijl
+ruff check --fix && mypy .
+
+# Unit Tests
+uv run pytest tests/ -v
+```
+
+Hoe meer validatiegates, hoe beter, maar zorg ervoor dat ze **uitvoerbaar zijn door het AI-agent**. Voeg tests, mcp-servers en andere relevante validatiegates toe. Wees creatief met de validatiegates.
+
+**\_ CRUCIAAL NADAT JE KLAAR BENT MET HET ONDERZOEKEN EN VERKENNEN VAN DE CODEBASE, VOORDAT JE BEGINT MET HET SCHRIJVEN VAN DE PRP \_**
+
+**\_ ULTRA-DENK NA OVER DE PRP EN PLAN JE AANPAK IN GEDETAILLEERDE TAKEN ALVORENS TE BEGINNEN MET HET SCHRIJVEN VAN DE PRP \_**
+
+## Output
+
+Opslaan als: `PRP/output/create/{feature-name}.md`
+
+### Kwaliteitscontrolelijst
+
+  * [ ] Alle benodigde context inbegrepen
+  * [ ] Validatiegates zijn uitvoerbaar door AI
+  * [ ] Verwijst naar bestaande patronen
+  * [ ] Duidelijk implementatiepad
+  * [ ] Foutafhandeling gedocumenteerd
+
+Beoordeel de PRP op een schaal van 1-10 (vertrouwensniveau om te slagen in één-pass implementatie met behulp van Claude-code).
+
+Onthoud: Het doel is **één-pass implementatiesucces** door **uitgebreide context**.
