@@ -2,6 +2,7 @@
 
 ## ## django.po bestand: $ARGUMENTS
 
+```mermaid
 flowchart TD
     Start([Start: Django.po translation to Dutch]) --> Receive["Receive django.po file"]
     
@@ -115,3 +116,4 @@ flowchart TD
     style ProcessAgent8 fill:#E6E6FA
     style ProcessAgent9 fill:#E6E6FA
     style ProcessAgent10 fill:#E6E6FA
+```
