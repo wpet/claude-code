@@ -4,8 +4,9 @@ Implementeer een feature met behulp van het PRP bestand.
 
 ## PRP Bestand: $ARGUMENTS
 
-## Workflow
+## Te volgen werkinstructie
 
+```mermaid
 flowchart TD
     Start([Start: Uitvoeren BASE PRP]) --> Input["Ontvang PRP Bestand:<br/>ARGUMENTEN"]
     
@@ -112,3 +113,53 @@ flowchart TD
     style FinalValidation fill:#FFE4B5
     style FinalCheck fill:#FFE4B5
     style RefOption fill:#FFE4B5
+```
+
+## Uitvoeringsproces
+
+### Lees en bestudeer de werkinstructie in het Mermaid diagram
+
+Volg deze instructie nauwgezet. Gebruik onderstaande tekst voor verheldering en het verkrijgen van verdere context.
+
+###  PRP Laden
+
+    * Lees het opgegeven PRP-bestand.
+    * Begrijp alle **context en vereisten**.
+    * Volg alle instructies in de PRP en breid het onderzoek indien nodig uit.
+    * Zorg ervoor dat je alle benodigde context hebt om de PRP volledig te implementeren.
+    * Doe indien nodig meer **webzoekopdrachten en codebase-verkenning**.
+
+###  ULTRATHINK
+
+    * **Ultrathink** voordat je het plan uitvoert. Creëer een **uitgebreid plan** dat aan alle vereisten voldoet.
+    * Deel de PRP op in **duidelijke taken** met behulp van de TodoWrite-tool.
+    * Gebruik **agents, subagents en batchtools** om het proces te verbeteren.
+    * **Belangrijk**: JE MOET ERVOOR ZORGEN DAT JE UITERST DUIDELIJKE TAKEN HEBT VOOR SUBAGENTS EN VERWIJS NAAR CONTEXT EN ZORG ERVOOR DAT ELKE SUBAGENT DE PRP LEEST EN DE CONTEXT BEGRIJPT.
+    * Identificeer **implementatiepatronen** uit bestaande code om te volgen.
+    * Raad nooit naar imports, bestandsnamen, functienamen, etc., baseer je **ALTIJD op de realiteit en het verzamelen van echte context**.
+
+### Voer het plan uit
+
+    * Voer de PRP stap voor stap uit
+    * Implementeer alle code.
+
+###  Valideer
+
+    * Voer elke validatieopdracht uit.
+    * Hoe beter de validatie, hoe zekerder we kunnen zijn dat de implementatie correct is.
+    * Los eventuele fouten op.
+    * Voer opnieuw uit totdat alles is geslaagd.
+    * Lees de PRP altijd opnieuw om de implementatie te valideren en te controleren of deze aan de vereisten voldoet.
+
+###  Voltooi
+
+    * Zorg ervoor dat alle checklistitems zijn voltooid.
+    * Voer de definitieve validatiesuite uit.
+    * Rapporteer de voltooiingsstatus.
+    * Lees de PRP opnieuw om er zeker van te zijn dat je alles hebt geïmplementeerd.
+
+###  Verwijs naar de PRP
+
+    * Je kunt altijd opnieuw naar de PRP verwijzen indien nodig.
+
+**Opmerking**: Als de validatie mislukt, gebruik dan de foutpatronen in de PRP om het probleem op te lossen en opnieuw te proberen.
