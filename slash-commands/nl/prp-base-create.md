@@ -32,7 +32,8 @@ flowchart TD
     
     ExternalResearch --> ER1["Maak todos voor extern onderzoek"]
     ER1 --> ER2["Start subagents voor online onderzoek"]
-    ER2 --> ER3["Verzamel library documentatie URLs"]
+    ER2 --> ER2a["Lees de benodigde documentatie in<br/>PRP/tech_stack_docs, afhankelijk van<br/>de technieken die voor de te ontwikkelen<br/>functionaliteit noodzakelijk is"]
+    ER2a --> ER3["Verzamel library documentatie URLs"]
     ER3 --> ER4["Vind implementatie voorbeelden<br/>GitHub/StackOverflow/blogs"]
     ER4 --> ER5["Documenteer best practices"]
     ER5 --> ER6["Noteer veelvoorkomende valkuilen"]
@@ -154,6 +155,7 @@ Volg deze instructie nauwgezet. Gebruik onderstaande tekst voor verheldering en 
 2.  **Externe Onderzoek op Schaal**
 
       * Creëer duidelijke taken en spawn subagents met instructies om diepgaand onderzoek te doen naar vergelijkbare features/patronen online en voeg **URL's naar documentatie en voorbeelden** toe.
+      * Lees de benodigde documentatie in PRP/tech_stack_docs, afhankelijk van de technieken die voor de te ontwikkelen functionaliteit noodzakelijk is. 
       * Bibliotheekdocumentatie (voeg **specifieke URL's** toe).
       * Voeg voor kritieke documentatiestukken een `.md`-bestand toe aan `PRP/ai_docs` en verwijs ernaar in de PRP met duidelijke redenering en instructies.
       * Implementatievoorbeelden (GitHub/StackOverflow/blogs).
